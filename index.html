@@ -8,37 +8,48 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <title>Amigo Secreto</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-    
+
+    <!-- SweetAlert2 para interações -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="app.js" defer></script>
 </head>
 
 <body>
     <main class="main-content">
         <header class="header-banner">
-            <h1 class="main-title">Amigo Secreto</h1>
+            <h1 class="main-title">Sorteio do Amigo Secreto</h1>
             <img src="assets/amigo-secreto.png" alt="Imagem representativa de amigo secreto">
         </header>
-        
+
         <section class="input-section">
-            <h2 class="section-title">Digite o nome dos seus amigos</h2>
+            <h2 class="section-title">Vamos conhecer o amigo premiado!</h2>
+
+            <!-- Caixa de entrada de nomes -->
             <div class="input-wrapper">
-                <input type="text" id="amigo" class="input-name" placeholder="Digite um nome">
-                <button class="button-add" onclick="adicionarAmigo()">Adicionar</button>
+                <input type="text" id="amigo" class="input-name" placeholder="Digite os nomes dos seus amigos">
+                <button class="button-add" id="btnAdicionar" onclick="adicionarAmigo()">Adicionar Amigo</button>
             </div>
-           
+
+            <!-- Lista de amigos -->
             <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
+
+            <!-- Resultado do sorteio -->
             <ul id="resultado" class="result-list" aria-live="polite"></ul>
 
+            <!-- Botões de sorteio e novo sorteio -->
             <div class="button-container">
-                <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
+                <button class="button-draw" id="btnSortear" onclick="sortearAmigo()" aria-label="Sortear Amigo">
                     <img src="assets/play_circle_outline.png" alt="Ícone para sortear">
-                    Sortear amigo
+                    Sortear Amigo
                 </button>
             </div>
+
+            <button class="button-draw-new" id="btnNovoSorteio" onclick="novoSorteio()" disabled>
+                <img src="assets/play_circle_outline.png" alt="Ícone para novo sorteio">
+                Novo Sorteio
+            </button>
         </section>
     </main>
-
-    <script src="app.js" defer></script>
 </body>
 </html>

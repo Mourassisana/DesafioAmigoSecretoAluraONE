@@ -134,6 +134,25 @@ ul {
     margin: 20px 0;
 }
 
+.name-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.name-list li {
+    background-color: var(--color-white);
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #000;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Resultados */
 .result-list {
     margin-top: 15px;
     color: #05DF05;
@@ -146,7 +165,6 @@ ul {
 .button-draw {
     display: flex;
     align-items: center;
-    width: 100%;
     padding: 10px 40px;
     color: var(--color-white);
     background-color: var(--color-button);
@@ -158,5 +176,29 @@ ul {
 }
 
 .button-draw:hover {
+    background-color: var(--color-button-hover);
+}
+
+/* Novo sorteio */
+.button-draw-new {
+    display: flex;
+    align-items: center;
+    padding: 10px 40px;
+    color: var(--color-white);
+    background-color: var(--color-button);
+    font-size: 16px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: 20px;
+    width: auto; /* Tamanho ajustado */
+}
+
+.button-draw-new:disabled {
+    background-color: var(--color-tertiary);
+    cursor: not-allowed;
+}
+
+.button-draw-new:hover {
     background-color: var(--color-button-hover);
 }
