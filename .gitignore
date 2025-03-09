@@ -1,0 +1,463 @@
+Antes das atualizações finais... mtos bug e erros
+
+JS
+```
+Swal.fire({
+    customClass: {
+        title: 'swal-title',   // Classe para o título
+        content: 'swal-content',  // Classe para o conteúdo
+        confirmButton: 'swal-btn-confirm',  // Classe para o botão de confirmação
+    },  
+    title: 'Boas-vindas ao \nChallenge Amigo Secreto\nPrograma ONE + Alura',
+    text: 'Para começar, preencha o campo\ncom os nomes dos seus amigos',
+    confirmButtonText: 'Show de Bola'
+}).then(() => {
+    Swal.fire({
+        customClass: {
+            title: 'swal-title',   
+            content: 'swal-content',  
+            confirmButton: 'swal-btn-confirm',  
+        },  
+        text: 'Para cada amigo inserido, clique em "Adicionar Amigo" ou pressione Enter.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    }).then(() => {
+        Swal.fire({
+            customClass: {
+                title: 'swal-title',   
+                content: 'swal-content',  
+                confirmButton: 'swal-btn-confirm',  
+            },  
+            text: 'Quando todos os participantes forem inseridos,\n clique em "Sortear Amigo" e veja quem você tirou!',
+            icon: 'info',
+            confirmButtonText: 'Começar'
+        });
+    });
+});
+
+let adicionarAmigos = [];
+
+function inserirAmigoALista() {
+    const input = document.getElementById("amigo");
+    const nomeAmigo = input.value.trim();
+
+    if (nomeAmigo === "") {
+        Swal.fire({
+            title: 'Opa!',
+            text: 'Por favor, insira um nome válido para sorteio',
+            icon: 'error',  
+            customClass: {
+                title: 'swal-title',
+                content: 'swal-content',
+                confirmButton: 'swal-btn-confirm',
+            },
+        });
+        return;
+    }
+
+    if (adicionarAmigos.some(amigo => amigo.toLowerCase() === nomeAmigo.toLowerCase())) {
+        Swal.fire({
+            title: 'Nome Duplicado!',
+            text: 'Esse nome já foi adicionado à lista. Insira um amigo diferente.',
+            icon: 'warning',  
+            customClass: {
+                title: 'swal-title',
+                content: 'swal-content',
+                confirmButton: 'swal-btn-confirm',
+            },
+        });
+        return;
+    }
+
+    adicionarAmigos.push(nomeAmigo); 
+    document.getElementById("amigo").value = "";
+    Swal.fire({
+        title: 'Show!',  // Título do SweetAlert
+        text: `${nomeAmigo} foi adicionado à lista de sorteio!`,
+        icon: 'success',  
+        customClass: {
+            title: 'swal-title',  // Classe personalizada para o título
+            content: 'swal-content',  // Classe personalizada para o conteúdo
+            confirmButton: 'swal-btn-confirm',  // Classe personalizada para o botão de confirmação
+        },
+    });
+
+    atualizarLista();
+}
+
+function atualizarLista() {
+    const listaAmigos = document.getElementById("listaAmigos");
+    listaAmigos.innerHTML = ""; 
+
+    adicionarAmigos.forEach((amigo) => {
+        const li = document.createElement("li");
+        li.textContent = amigo;
+        li.classList.add("amigo-item");
+
+        listaAmigos.appendChild(li); 
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const btnAdicionar = document.getElementById('btnAdicionar');
+    if (btnAdicionar) {
+        btnAdicionar.addEventListener('click', inserirAmigoALista);
+    } else {
+        console.error("Botão de adicionar não encontrado!");
+    }
+});
+
+function sortearAmigo() {
+    if (adicionarAmigos.length === 0) {
+        Swal.fire({
+            title: "Oops!", 
+            text: "A lista está vazia. Adicione pelo menos um nome antes de sortear.", 
+            icon: "error", 
+            customClass: {
+                title: 'swal-title',
+                content: 'swal-content',
+                confirmButton: 'swal-btn-confirm',
+            },
+        });
+        return;
+    }
+
+    const amigoSorteado = adicionarAmigos[Math.floor(Math.random() * adicionarAmigos.length)];
+
+    Swal.fire({
+        title: "Amigo Sorteado!", 
+        text: `O amigo sorteado é: ${amigoSorteado}`, 
+        icon: "success", 
+        customClass: {
+            title: 'swal-title',
+            content: 'swal-content',
+            confirmButton: 'swal-btn-confirm',
+        },
+    });
+
+    // Desabilita o botão de "Sortear Amigo" após o sorteio
+    document.getElementById("btnSortear").disabled = true;
+
+    // Habilita o botão "Novo Sorteio"
+    document.getElementById("btnNovoSorteio").disabled = false;
+}
+
+function novoSorteio() {
+    adicionarAmigos = [];
+    atualizarLista(); // Atualiza a visualização da lista (agora vazia)
+
+    document.getElementById("btnNovoSorteio").disabled = true;
+
+    document.getElementById("btnSortear").disabled = false;
+}
+```
+
+HTML
+```
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Amigo Secreto</title>
+
+    <!-- SweetAlert2 para interações -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <main class="main-content">
+        <header class="header-banner">
+            <h1 class="main-title">Challenge <br>Amigo Secreto</h1>
+            <img src="assets/amigo-secreto.png" alt="Imagem representativa de amigo secreto">
+        </header>
+
+        <section class="input-section">
+            <h2 class="section-title">Alura + Oracle: <strong>Programa ONE</strong></h2>
+
+            <!-- Caixa de entrada de nomes -->
+            <div class="input-wrapper">
+                <input type="text" id="amigo" class="input-name" placeholder="Digite os nomes dos seus amigos">
+                <button class="button-add" id="btnAdicionar" onclick="adicionarAmigo()">Adicionar Amigo</button>
+            </div>
+
+            <!-- Lista de amigos -->
+            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
+
+            <!-- Resultado do sorteio -->
+            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+
+            <!-- Botões de sorteio e novo sorteio -->
+            <div class="button-container">
+                <button class="button-draw" id="btnSortear" onclick="sortearAmigo()" aria-label="Sortear Amigo">
+                    <img src="assets/play_circle_outline.png" alt="Ícone para sortear">
+                    Sortear Amigo
+                </button>
+            
+                <button class="button-draw-new" id="btnNovoSorteio" onclick="novoSorteio()" disabled>
+                    <img src="assets/play_circle_outline.png" alt="Ícone para novo sorteio">
+                    Novo Sorteio
+                </button>
+                            
+            </div>
+          
+        </section>
+    
+    <footer class="footer">
+        <p>Mourassisana   2025</p>
+        <p class="direitosreserv">Todos os direitos reservados &copy;</p>
+    </footer>
+    
+    </main>
+</body>
+</html>
+```
+
+CSS:
+```
+/*Fontes e Cores*/
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Fjalla+One&family=Honk&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --color-primary: #9F00FF;
+    --color-secondary: #FAF78A;
+    --color-tertiary: #cfcfc4;
+    --color-footer: #F45316; 
+    --color-button: #ED2159;
+    --color-button-hover: #FFC9A9;
+    --color-hover-disabled: #a1a1a1;
+    --color-text: #111111; 
+    --color-white: #f6f6f6;
+
+    --font-primary: "Honk", system-ui;
+    --font-secundary: "Barriecito", system-ui;
+    --font-tertiary: "Montserrat", sans-serif;
+    --font-quartiary: "Roboto", sans-serif;
+    --font-extra: "Fjalla One", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.header-banner {
+    flex: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0 0;
+}
+
+/* Seção de entrada */
+.input-section {
+    flex: 60%;
+    background-color: var(--color-secondary);
+    border: 1px solid #000;
+    border-radius: 54px 54px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Títulos */
+.main-title {
+    font-size: 64px;
+    font-family: "Honk", serif;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--color-white);
+}
+
+.section-title {
+    font-family: "Orbitron", serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 30px 0;
+    text-align: center;
+}
+
+/* Contêineres de entrada e botão */
+.input-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.input-name {
+    width: 100%;
+    padding: 10px;
+    border: 1px ridge #000;
+    border-radius: 10px 0 0 10px;
+    font-size: 16px;
+}
+
+.button-container {
+    width: 550px;
+    justify-content: space-between;
+    display: flex;
+}
+
+/* Estilos de entrada de texto */
+.input-title {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #333;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    font-family: "Roboto", serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos de botão */
+button {
+    padding: 15px 30px;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.button-add {
+    background-color: var(--color-tertiary);
+    color: var(--color-text);
+    border-radius: 0 10px 10px 0;
+    width: 250px;
+}
+
+.button-add:hover {
+    background-color: #a1a1a1;
+}
+
+/* Listas */
+ul {
+    list-style-type: none;
+    color: var(--color-text);
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+/* Estilização das caixinhas de amigos */
+.name-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    max-width: 600px;
+}
+
+.amigo-item {
+    background-color: var(--color-tertiary);
+    color: var(--color-text);
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Resultados */
+.result-list {
+    margin-top: 15px;
+    color: #05DF05;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Botão de sortear título */
+.button-draw {
+    display: flex;
+    align-items: center;
+    padding: 10px 40px;
+    color: var(--color-white);
+    background-color: var(--color-button);
+    font-size: 16px;
+    margin-top: 20px; 
+}
+
+.button-draw img {
+    margin-right: 20px;
+}
+
+.button-draw:hover {
+    background-color: var(--color-button-hover);
+}
+
+.button-draw:disabled {
+    background-color: var(--color-tertiary);
+    cursor: not-allowed;
+}
+
+/* Novo sorteio */
+.button-draw-new {
+    display: flex;
+    align-items: center;
+    padding: 10px 40px;
+    color: var(--color-white);
+    background-color: var(--color-button);
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: 20px;
+    width: auto; /* Tamanho ajustado */
+}
+
+.button-draw-new img {
+    margin-right: 20px;
+}
+
+.button-draw-new:hover {
+    background-color: var(--color-button-hover);
+}
+
+.button-draw-new:disabled {
+    background-color: var(--color-tertiary);
+    cursor: not-allowed;
+}
+
+.footer {
+    padding: 0.5em;
+    color: var(--color-secondary);
+    background-color: var(--color-button);
+    text-align: center;
+    font-family: var(--font);
+    font-size: clamp(16px, 2vw, 28px);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+```

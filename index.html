@@ -7,7 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <!-- Ícone para guia do navegador -->
+    <link rel="icon" href="assets/icon-gift.png" type="image/x-icon">
     <title>Amigo Secreto</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <!-- SweetAlert2 para interações -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,24 +22,24 @@
 <body>
     <main class="main-content">
         <header class="header-banner">
-            <h1 class="main-title">Sorteio do Amigo Secreto</h1>
+            <h1 class="main-title">Challenge <br>Amigo Secreto</h1>
             <img src="assets/amigo-secreto.png" alt="Imagem representativa de amigo secreto">
         </header>
 
         <section class="input-section">
-            <h2 class="section-title">Vamos conhecer o amigo premiado!</h2>
+            <h2 class="section-title">Programa ONE + Alura</h2>
 
             <!-- Caixa de entrada de nomes -->
             <div class="input-wrapper">
                 <input type="text" id="amigo" class="input-name" placeholder="Digite os nomes dos seus amigos">
-                <button class="button-add" id="btnAdicionar" onclick="adicionarAmigo()">Adicionar Amigo</button>
+                <button class="button-add" id="btnAdicionar">Adicionar Amigo</button>
             </div>
 
             <!-- Lista de amigos -->
             <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
 
             <!-- Resultado do sorteio -->
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+            <div id="resultadoSorteio" class="result-message" aria-live="polite"></div>
 
             <!-- Botões de sorteio e novo sorteio -->
             <div class="button-container">
@@ -48,10 +52,14 @@
                     <img src="assets/play_circle_outline.png" alt="Ícone para novo sorteio">
                     Novo Sorteio
                 </button>
-                            
             </div>
-          
         </section>
+    
+    <footer class="footer">
+        <p>Mourassisana   2025</p>
+        <p class="direitosreserv">Todos os direitos reservados &copy;</p>
+    </footer>
+    
     </main>
 </body>
 </html>
