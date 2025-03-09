@@ -1,3 +1,8 @@
+/*Fontes*/
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Honk&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Honk&family=Orbitron:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Honk&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
     --color-primary: #4B69FD;
     --color-secondary: #FFF9EB;
@@ -44,7 +49,7 @@ body {
     flex: 60%;
     background-color: var(--color-secondary);
     border: 1px solid #000;
-    border-radius: 64px 64px 0 0;
+    border-radius: 54px 54px 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,19 +59,19 @@ body {
 
 /* Títulos */
 .main-title {
-    font-size: 48px;
-    font-family: "Merriweather", serif;
+    font-size: 64px;
+    font-family: "Honk", serif;
     font-weight: 900;
     font-style: italic;
     color: var(--color-white);
 }
 
 .section-title {
-    font-family: "Inter", serif;
+    font-family: "Orbitron", serif;
     font-size: 36px;
     font-weight: 700;
     color: var(--color-primary);
-    margin: 10px 0;
+    margin: 30px 0;
     text-align: center;
 }
 
@@ -82,14 +87,15 @@ body {
 .input-name {
     width: 100%;
     padding: 10px;
-    border: 2px solid #000;
-    border-radius: 25px 0 0 25px;
+    border: 1px ridge #000;
+    border-radius: 10px 0 0 10px;
     font-size: 16px;
 }
 
 .button-container {
-    width: 300px;
-    justify-content: center;
+    width: 550px;
+    justify-content: space-between;
+    display: flex;
 }
 
 /* Estilos de entrada de texto */
@@ -99,18 +105,18 @@ body {
     font-size: 16px;
     border: 2px solid #333;
     border-right: none;
-    border-radius: 25px 0 0 25px;
-    font-family: "Merriweather", serif;
+    border-radius: 10px 0 0 10px;
+    font-family: "Roboto", serif;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Estilos de botão */
 button {
     padding: 15px 30px;
-    font-family: "Inter", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     border: 2px solid #000;
-    border-radius: 25px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
@@ -118,7 +124,8 @@ button {
 .button-add {
     background-color: var(--color-tertiary);
     color: var(--color-text);
-    border-radius: 0 25px 25px 0;
+    border-radius: 0 10px 10px 0;
+    width: 250px;
 }
 
 .button-add:hover {
@@ -129,27 +136,30 @@ button {
 ul {
     list-style-type: none;
     color: var(--color-text);
-    font-family: "Inter", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 18px;
     margin: 20px 0;
 }
 
+/* Estilização das caixinhas de amigos */
 .name-list {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
     max-width: 600px;
 }
 
-.name-list li {
-    background-color: var(--color-white);
-    padding: 10px;
-    border-radius: 25px;
-    border: 1px solid #000;
-    font-weight: 600;
-    font-size: 18px;
+.amigo-item {
+    background-color: var(--color-tertiary);
+    color: var(--color-text);
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Resultados */
@@ -169,14 +179,20 @@ ul {
     color: var(--color-white);
     background-color: var(--color-button);
     font-size: 16px;
+    margin-top: 20px; 
 }
 
 .button-draw img {
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
 .button-draw:hover {
     background-color: var(--color-button-hover);
+}
+
+.button-draw:disabled {
+    background-color: var(--color-tertiary);
+    cursor: not-allowed;
 }
 
 /* Novo sorteio */
@@ -187,18 +203,22 @@ ul {
     color: var(--color-white);
     background-color: var(--color-button);
     font-size: 16px;
-    border-radius: 25px;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     margin-top: 20px;
     width: auto; /* Tamanho ajustado */
 }
 
-.button-draw-new:disabled {
-    background-color: var(--color-tertiary);
-    cursor: not-allowed;
+.button-draw-new img {
+    margin-right: 20px;
 }
 
 .button-draw-new:hover {
     background-color: var(--color-button-hover);
+}
+
+.button-draw-new:disabled {
+    background-color: var(--color-tertiary);
+    cursor: not-allowed;
 }
